@@ -1,0 +1,40 @@
+name: Claude Issue Triage
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Run Claude Issue Triage
+        id: claude-triage
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            Analiza el issue #${{ github.event.issue.number }} de este repositorio (Tetris en HTML5 Canvas + JS vanilla, ver CLAUDE.md para arquitectura).
+
+            Haz lo siguiente:
+
+            1. Lee el título y cuerpo del issue con `gh issue view ${{ github.event.issue.number }}`.
+            2. Revisa las labels existentes con `gh label list` y asigna al issue las que correspondan (por ejemplo bug, enhancement, documentation, question, duplicate, invalid, help wanted, good first issue) usando `gh issue edit ${{ github.event.issue.number }} --add-label "..."`. No crees labels nuevas. Si el issue ya tiene labels que ya no aplican, quítalas con `--remove-label`.
+            3. Si es necesario, inspecciona el código relevante (game.js, index.html, style.css) para entender si el problema descrito es reproducible o tiene sentido dado el código actual.
+            4. Publica UN comentario en el issue (`gh issue comment ${{ github.event.issue.number }} --body "..."`) con un diagnóstico breve en español que incluya:
+               - Resumen del problema/petición en una línea.
+               - Diagnóstico técnico: causa probable, apuntando a funciones/archivos concretos (ej. `collide()` en game.js:XX).
+               - Plan de implementación sugerido: pasos concretos y archivos a tocar para resolverlo, sin escribir el código todavía.
+               - Si el issue es válido y accionable, cierra el comentario invitando a mencionar `@claude implementa esto` en un comentario para que se genere el código de la solución.
+
+            No modifiques archivos del repositorio ni crees ramas o pull requests en este workflow: tu única salida son labels y un comentario.
+          claude_args: '--allowed-tools "Bash(gh issue view:*),Bash(gh issue comment:*),Bash(gh issue edit:*),Bash(gh label list:*)"'
