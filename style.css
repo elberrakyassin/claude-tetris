@@ -212,7 +212,11 @@ kbd {
   color: var(--value-color);
 }
 
-#restart-btn {
+.hidden {
+  display: none;
+}
+
+.btn {
   margin-top: 8px;
   background: var(--restart-bg);
   color: var(--restart-color);
@@ -226,6 +230,70 @@ kbd {
   transition: background 0.15s;
 }
 
-#restart-btn:hover {
+.btn:hover {
   background: var(--restart-hover-bg);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--value-color);
+  border: 1px solid var(--kbd-border);
+}
+
+.btn-secondary:hover {
+  background: var(--kbd-bg);
+}
+
+/* ---- Menu de pausa ---- */
+.pause-box {
+  min-width: 240px;
+}
+
+#pause-title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: var(--overlay-title-color);
+}
+
+.pause-view {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+  width: 100%;
+}
+
+.level-select {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.level-select select {
+  background: var(--kbd-bg);
+  color: var(--fg);
+  border: 1px solid var(--kbd-border);
+  border-radius: 4px;
+  padding: 6px 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+#pause-controls ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+#pause-controls li {
+  font-size: 13px;
+  color: var(--controls-color);
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
