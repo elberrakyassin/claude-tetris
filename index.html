@@ -44,7 +44,7 @@
             <li><kbd>↑</kbd> rotar</li>
             <li><kbd>↓</kbd> bajar</li>
             <li><kbd>Space</kbd> caída</li>
-            <li><kbd>P</kbd> pausa</li>
+            <li><kbd>P</kbd> <kbd>Esc</kbd> pausa</li>
           </ul>
         </div>
       </aside>
@@ -52,9 +52,47 @@
 
     <div id="overlay" class="overlay hidden">
       <div class="overlay-box">
-        <p id="overlay-title">GAME OVER</p>
+        <p id="overlay-title" class="overlay-title-text">GAME OVER</p>
         <p id="overlay-score"></p>
-        <button id="restart-btn">Reiniciar</button>
+        <button id="restart-btn" class="btn btn-primary">Reiniciar</button>
+      </div>
+    </div>
+
+    <div id="pause-menu" class="overlay hidden">
+      <div class="overlay-box pause-box">
+        <p class="overlay-title-text">PAUSA</p>
+
+        <div id="pause-main-view" class="pause-view">
+          <div class="level-select">
+            <label class="label" for="starting-level-select">NIVEL INICIAL</label>
+            <select id="starting-level-select" class="level-select-input">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+          </div>
+          <button id="resume-btn" class="btn btn-primary" type="button">Reanudar</button>
+          <button id="pause-restart-btn" class="btn btn-secondary" type="button">Reiniciar</button>
+          <button id="controls-btn" class="btn btn-secondary" type="button">Ver controles</button>
+        </div>
+
+        <div id="pause-controls-view" class="pause-view hidden">
+          <ul>
+            <li><kbd>←</kbd><kbd>→</kbd> mover</li>
+            <li><kbd>↑</kbd> rotar</li>
+            <li><kbd>↓</kbd> bajar</li>
+            <li><kbd>Space</kbd> caída</li>
+            <li><kbd>P</kbd> <kbd>Esc</kbd> pausa</li>
+          </ul>
+          <button id="back-btn" class="btn btn-secondary" type="button">Volver</button>
+        </div>
       </div>
     </div>
   </div>
