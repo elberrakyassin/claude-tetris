@@ -46,6 +46,61 @@ body.light-theme {
   --restart-hover-bg: #5a7cd6;
 }
 
+body.skin-neon {
+  --bg: #05050a;
+  --board-border: #ff2fd0;
+  --board-bg: #08060f;
+  --grid-line: #1a0f2e;
+  --block-highlight: rgba(255, 255, 255, 0.35);
+}
+
+body.skin-neon #board,
+body.skin-neon #next-canvas {
+  box-shadow: 0 0 20px rgba(255, 47, 208, 0.5), 0 0 60px rgba(0, 0, 0, 0.8);
+}
+
+body.skin-pastel {
+  --bg: #fdf6f0;
+  --fg: #5a4a5e;
+  --title-color: #f2a6c1;
+  --board-border: #e8d5e0;
+  --board-bg: #fffaf7;
+  --grid-line: #f2e6ee;
+  --block-highlight: rgba(255, 255, 255, 0.5);
+  --label-color: #b598ae;
+  --value-color: #f2a6c1;
+  --controls-color: #a68fa0;
+  --overlay-bg: rgba(253, 246, 240, 0.85);
+}
+
+body.skin-pixel {
+  --bg: #10141c;
+  --board-border: #4a5568;
+  --board-bg: #161c27;
+  --grid-line: #232b3a;
+  --block-highlight: rgba(255, 255, 255, 0.15);
+}
+
+.skin-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--controls-color);
+}
+
+.skin-select select {
+  background: var(--kbd-bg);
+  border: 1px solid var(--kbd-border);
+  color: var(--kbd-color);
+  border-radius: 3px;
+  padding: 2px 4px;
+  font-size: 11px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
 body {
   background: var(--bg);
   color: var(--fg);
