@@ -46,6 +46,75 @@ body.light-theme {
   --restart-hover-bg: #5a7cd6;
 }
 
+/* ---- Skins visuales (independientes del modo claro/oscuro) ---- */
+body.skin-neon {
+  --bg: #050507;
+  --fg: #d9fffb;
+  --title-color: #0ff0fc;
+  --board-border: #0ff0fc;
+  --board-bg: #000000;
+  --grid-line: #0a2a2a;
+  --block-highlight: rgba(255, 255, 255, 0.25);
+  --label-color: #39ff14;
+  --value-color: #0ff0fc;
+  --controls-color: #7dfcff;
+  --kbd-bg: #001a1a;
+  --kbd-border: #0ff0fc;
+  --kbd-color: #0ff0fc;
+  --overlay-bg: rgba(0, 0, 0, 0.85);
+  --overlay-title-color: #ff2d95;
+  --restart-bg: #0ff0fc;
+  --restart-color: #000000;
+  --restart-hover-bg: #6dfcff;
+}
+
+body.skin-neon #board,
+body.skin-neon #next-canvas {
+  box-shadow: 0 0 20px var(--board-border), 0 0 45px rgba(0, 255, 255, 0.35);
+}
+
+body.skin-pastel {
+  --bg: #fdf6f0;
+  --fg: #5a4a4a;
+  --title-color: #d99fc0;
+  --board-border: #f0d9e8;
+  --board-bg: #fffaf7;
+  --grid-line: #f5e6ee;
+  --block-highlight: rgba(255, 255, 255, 0.6);
+  --label-color: #c99bb8;
+  --value-color: #d99fc0;
+  --controls-color: #a68a99;
+  --kbd-bg: #f5e6ee;
+  --kbd-border: #f0d9e8;
+  --kbd-color: #a68a99;
+  --overlay-bg: rgba(255, 250, 247, 0.85);
+  --overlay-title-color: #e39aa0;
+  --restart-bg: #f2b8c6;
+  --restart-color: #6b4a55;
+  --restart-hover-bg: #f7ccd6;
+}
+
+body.skin-pixel {
+  --bg: #10121c;
+  --fg: #c8d0e0;
+  --title-color: #ffd700;
+  --board-border: #3a3f5a;
+  --board-bg: #181a28;
+  --grid-line: #262a3e;
+  --block-highlight: rgba(255, 255, 255, 0.18);
+  --label-color: #6a7290;
+  --value-color: #ffd700;
+  --controls-color: #8890b0;
+  --kbd-bg: #20233a;
+  --kbd-border: #3a3f5a;
+  --kbd-color: #c8d0e0;
+  --overlay-bg: rgba(10, 11, 20, 0.85);
+  --overlay-title-color: #ff5555;
+  --restart-bg: #ffd700;
+  --restart-color: #10121c;
+  --restart-hover-bg: #ffe14d;
+}
+
 body {
   background: var(--bg);
   color: var(--fg);
@@ -96,6 +165,28 @@ body {
 
 .theme-toggle input {
   cursor: pointer;
+}
+
+.skin-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--controls-color);
+  cursor: pointer;
+  user-select: none;
+}
+
+.skin-select select {
+  cursor: pointer;
+  background: var(--kbd-bg);
+  color: var(--kbd-color);
+  border: 1px solid var(--kbd-border);
+  border-radius: 3px;
+  padding: 2px 4px;
+  font-size: 11px;
+  font-family: inherit;
 }
 
 .game-container {
