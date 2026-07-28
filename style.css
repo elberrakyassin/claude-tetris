@@ -197,13 +197,30 @@ kbd {
   flex-direction: column;
   gap: 12px;
   align-items: center;
+  min-width: 220px;
 }
 
-#overlay-title {
+.overlay-view {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.overlay-view.hidden {
+  display: none;
+}
+
+#overlay-title,
+.overlay-heading {
   font-size: 28px;
   font-weight: 800;
   letter-spacing: 4px;
   color: var(--overlay-title-color);
+}
+
+.overlay-heading {
+  color: var(--title-color);
 }
 
 #overlay-score {
@@ -212,8 +229,10 @@ kbd {
   color: var(--value-color);
 }
 
-#restart-btn {
-  margin-top: 8px;
+#restart-btn,
+.pause-actions button,
+#controls-back-btn {
+  margin-top: 0;
   background: var(--restart-bg);
   color: var(--restart-color);
   border: none;
@@ -226,6 +245,86 @@ kbd {
   transition: background 0.15s;
 }
 
-#restart-btn:hover {
+#restart-btn {
+  margin-top: 8px;
+}
+
+#restart-btn:hover,
+.pause-actions button:hover,
+#controls-back-btn:hover {
   background: var(--restart-hover-bg);
+}
+
+.pause-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.pause-actions button.secondary,
+#controls-back-btn.secondary {
+  background: transparent;
+  color: var(--fg);
+  border: 1px solid var(--board-border);
+}
+
+.pause-actions button.secondary:hover,
+#controls-back-btn.secondary:hover {
+  background: var(--kbd-bg);
+}
+
+/* ---- Selector de nivel inicial ---- */
+.level-select {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.level-options {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+
+.level-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 5px;
+  border: 1px solid var(--kbd-border);
+  background: var(--kbd-bg);
+  color: var(--kbd-color);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.level-btn:hover {
+  border-color: var(--value-color);
+}
+
+.level-btn.active {
+  background: var(--restart-bg);
+  color: var(--restart-color);
+  border-color: var(--restart-bg);
+}
+
+/* ---- Lista de controles dentro del overlay ---- */
+.overlay-controls-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.overlay-controls-list li {
+  font-size: 13px;
+  color: var(--controls-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }

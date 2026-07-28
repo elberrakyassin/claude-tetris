@@ -43,9 +43,50 @@ const overlayScore = document.getElementById('overlay-score');
 const restartBtn = document.getElementById('restart-btn');
 const themeToggle = document.getElementById('theme-toggle');
 
+const viewGameover = document.getElementById('view-gameover');
+const viewPause = document.getElementById('view-pause');
+const viewControls = document.getElementById('view-controls');
+const resumeBtn = document.getElementById('resume-btn');
+const pauseRestartBtn = document.getElementById('pause-restart-btn');
+const controlsToggleBtn = document.getElementById('controls-toggle-btn');
+const controlsBackBtn = document.getElementById('controls-back-btn');
+const levelOptionsEl = document.getElementById('level-options');
+
 let board, current, next, score, lines, level, paused, gameOver, lastTime, dropAccum, dropInterval, animId;
 
 const THEME_KEY = 'tetris-theme';
+const START_LEVEL_KEY = 'tetris-start-level';
+const MAX_START_LEVEL = 10;
+
+let startLevel = parseInt(localStorage.getItem(START_LEVEL_KEY), 10);
+if (!Number.isInteger(startLevel) || startLevel < 1 || startLevel > MAX_START_LEVEL) {
+  startLevel = 1;
+}
+
+function updateLevelButtonsActive() {
+  for (const btn of levelOptionsEl.children) {
+    btn.classList.toggle('active', Number(btn.textContent) === startLevel);
+  }
+}
+
+function buildLevelOptions() {
+  levelOptionsEl.innerHTML = '';
+  for (let i = 1; i <= MAX_START_LEVEL; i++) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'level-btn';
+    btn.textContent = i;
+    btn.addEventListener('click', () => {
+      startLevel = i;
+      localStorage.setItem(START_LEVEL_KEY, String(i));
+      updateLevelButtonsActive();
+    });
+    levelOptionsEl.appendChild(btn);
+  }
+  updateLevelButtonsActive();
+}
+
+buildLevelOptions();
 
 function getThemeColor(varName) {
   return getComputedStyle(document.body).getPropertyValue(varName).trim();
@@ -245,11 +286,18 @@ function drawNext() {
       drawBlock(nextCtx, offX + c, offY + r, shape[r][c], NB);
 }
 
+function setOverlayView(view) {
+  viewGameover.classList.toggle('hidden', view !== 'gameover');
+  viewPause.classList.toggle('hidden', view !== 'pause');
+  viewControls.classList.toggle('hidden', view !== 'controls');
+}
+
 function endGame() {
   gameOver = true;
   cancelAnimationFrame(animId);
   overlayTitle.textContent = 'GAME OVER';
   overlayScore.textContent = `Puntuación: ${score.toLocaleString()}`;
+  setOverlayView('gameover');
   overlay.classList.remove('hidden');
 }
 
@@ -257,12 +305,12 @@ function togglePause() {
   if (gameOver) return;
   paused = !paused;
   if (!paused) {
+    overlay.classList.add('hidden');
     lastTime = performance.now();
     loop(lastTime);
   } else {
     cancelAnimationFrame(animId);
-    overlayTitle.textContent = 'PAUSA';
-    overlayScore.textContent = '';
+    setOverlayView('pause');
     overlay.classList.remove('hidden');
   }
 }
@@ -288,22 +336,23 @@ function init() {
   board = createBoard();
   score = 0;
   lines = 0;
-  level = 1;
+  level = startLevel;
   paused = false;
   gameOver = false;
-  dropInterval = 1000;
+  dropInterval = Math.max(100, 1000 - (level - 1) * 90);
   dropAccum = 0;
   lastTime = performance.now();
   next = randomPiece();
   spawn();
   updateHUD();
+  setOverlayView('gameover');
   overlay.classList.add('hidden');
   cancelAnimationFrame(animId);
   animId = requestAnimationFrame(loop);
 }
 
 document.addEventListener('keydown', e => {
-  if (e.code === 'KeyP') { togglePause(); return; }
+  if (e.code === 'KeyP' || e.code === 'Escape') { togglePause(); return; }
   if (paused || gameOver) return;
   switch (e.code) {
     case 'ArrowLeft':
@@ -328,5 +377,14 @@ document.addEventListener('keydown', e => {
 });
 
 restartBtn.addEventListener('click', init);
+
+resumeBtn.addEventListener('click', () => {
+  if (paused) togglePause();
+});
+
+pauseRestartBtn.addEventListener('click', init);
+
+controlsToggleBtn.addEventListener('click', () => setOverlayView('controls'));
+controlsBackBtn.addEventListener('click', () => setOverlayView('pause'));
 
 init();
