@@ -98,6 +98,45 @@ body {
   cursor: pointer;
 }
 
+.skin-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--controls-color);
+}
+
+.skin-select select {
+  background: var(--kbd-bg);
+  border: 1px solid var(--kbd-border);
+  color: var(--kbd-color);
+  border-radius: 4px;
+  padding: 3px 6px;
+  font-size: 11px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* ---- Skins: fondo del tablero ---- */
+body.skin-neon {
+  --board-bg: #050505;
+  --board-border: #000000;
+  --grid-line: #111111;
+}
+
+body.skin-pastel {
+  --board-bg: #fdfaf5;
+  --board-border: #e8d8e0;
+  --grid-line: #f0e6ec;
+}
+
+body.skin-pixel {
+  --board-bg: #1c1c1c;
+  --board-border: #000000;
+  --grid-line: #2a2a2a;
+}
+
 .game-container {
   display: flex;
   gap: 20px;
